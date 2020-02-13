@@ -15,7 +15,9 @@ rgbasm -h -L -o bin\Tetris.o Tetris.asm
 rgblink -o bin\Tetris.gb bin\Tetris.o
 ```
 
-## Confirming the reassembly still matches the original (Windows)
+## Confirming the reassembly still matches the original
+
+### Using File Compare (Windows)
 
 ```bat
 fc /b "bin\Tetris.gb" "bin\Tetris (World) (Rev A).gb"
@@ -26,6 +28,11 @@ fc /b "bin\Tetris.gb" "bin\Tetris (World) (Rev A).gb"
 * 1 = the files are different
 * 2 = the file(s) can't be found
 
-The above is put together into the included [`makefile`](makefile).
+### By hashing and comparing
+
+```powershell
+(Get-FileHash -Algorithm MD5 bin\Tetris.gb).Hash -eq "982ED5D2B12A0377EB14BCDC4123744E"
+```
+This will evaluate to `True` or `False` as appropriate. This approach is used in the included [`makefile`](makefile) so as to avoid redistributing the original ROM.
 
 ([Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm))
