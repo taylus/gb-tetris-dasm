@@ -1,0 +1,27 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Compile
+      run: rgbds-0.3.9-win64\win64\rgbasm.exe -h -L -o bin\Tetris.o Tetris.asm
+    - name: Link
+      run: rgblink.exe -o bin\Tetris.gb -n bin\Tetris.sym  bin\Tetris.o
+    - name: Check Hash
+      shell: pwsh
+      run: |
+        If ((Get-FileHash -Algorithm MD5 bin\Tetris.gb).Hash -ne "982ED5D2B12A0377EB14BCDC4123744E")
+        {
+            Write-Host -ForegroundColor Red \"Hashes do not match! ROM has been unexpectedly altered.\"
+            Exit 1
+        }
+        Else
+        {
+            Write-Host -ForegroundColor Green "Hashes match! ROM is unaltered."
+        }
