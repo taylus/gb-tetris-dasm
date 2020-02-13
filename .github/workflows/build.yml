@@ -10,13 +10,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Initialize
-      run: if not exist bin mkdir bin
+      run: mkdir -f bin
     - name: Compile
       run: rgbds-0.3.9-win64\win64\rgbasm.exe -h -L -o bin\Tetris.o Tetris.asm
     - name: Link
       run: rgblink.exe -o bin\Tetris.gb -n bin\Tetris.sym  bin\Tetris.o
     - name: Verify Hash
-      shell: pwsh
       run: |
         If ((Get-FileHash -Algorithm MD5 bin\Tetris.gb).Hash -ne "982ED5D2B12A0377EB14BCDC4123744E")
         {
