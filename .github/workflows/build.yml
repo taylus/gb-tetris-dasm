@@ -14,7 +14,7 @@ jobs:
     - name: Compile
       run: rgbds-0.3.9-win64\win64\rgbasm.exe -h -L -o bin\Tetris.o Tetris.asm
     - name: Link
-      run: rgblink.exe -o bin\Tetris.gb -n bin\Tetris.sym  bin\Tetris.o
+      run: rgbds-0.3.9-win64\win64\rgblink.exe -o bin\Tetris.gb -n bin\Tetris.sym  bin\Tetris.o
     - name: Verify Hash
       run: |
         If ((Get-FileHash -Algorithm MD5 bin\Tetris.gb).Hash -ne "982ED5D2B12A0377EB14BCDC4123744E")
