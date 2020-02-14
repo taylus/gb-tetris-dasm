@@ -188,10 +188,9 @@ db $ff, $ff, $ff, $ff, $ff, $ff   ;$00ec
 db $ff, $ff, $ff, $ff, $ff, $ff   ;$00f2
 db $ff, $ff, $ff, $ff, $ff, $ff   ;$00f8
 db $ff, $ff                       ;$00fe
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Cartridge Header: https://gbdev.gg8.se/wiki/articles/The_Cartridge_Header    ;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;---------------------------------------
+; Cartridge header                     ;    https://gbdev.gg8.se/wiki/articles/The_Cartridge_Header
+;---------------------------------------
 nop                               ;$0100    ;entry point        
 jp $0150                          ;$0101    ;jump over header data to de-facto entry point
 db $ce, $ed, $66, $66, $cc, $0d   ;$0104    ;begin Nintendo logo tile data               |
@@ -217,7 +216,7 @@ db $01                            ;$014c                                        
 db $0a                            ;$014d                                                 |
 db $16                            ;$014e                                                 |
 db $bf                            ;$014f                                                 |
-jp $020c                          ;$0150    ;de-facto entry point  <---------------------+
+jp $020c                          ;$0150    <--------------------------------------------+
 call $29e3                        ;$0153
 ldh a, [$ff41]                    ;$0156
 and a, $03                        ;$0158
