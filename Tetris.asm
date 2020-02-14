@@ -3,21 +3,21 @@ SECTION "rom0", ROM0
 ; Restart and interrupt vectors:                                               ;
 ; https://gbdev.gg8.se/wiki/articles/Memory_Map#Jump_Vectors_in_first_ROM_bank ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-jp $020c                          ;$0000        ;rst $00 handler        
+jp $020c                          ;$0000    ;rst $00 handler        
 nop                               ;$0003
 nop                               ;$0004
 nop                               ;$0005
 nop                               ;$0006
 nop                               ;$0007
 ;---------------------------------------
-jp $020c                          ;$0008        ;rst $08 handler  
+jp $020c                          ;$0008    ;rst $08 handler  
 rst $38                           ;$000b
 rst $38                           ;$000c
 rst $38                           ;$000d
 rst $38                           ;$000e
 rst $38                           ;$000f
 ;---------------------------------------
-rst $38                           ;$0010        ;rst $10 handler 
+rst $38                           ;$0010    ;rst $10 handler 
 rst $38                           ;$0011
 rst $38                           ;$0012
 rst $38                           ;$0013
@@ -26,7 +26,7 @@ rst $38                           ;$0015
 rst $38                           ;$0016
 rst $38                           ;$0017
 ;---------------------------------------
-rst $38                           ;$0018        ;rst $18 handler 
+rst $38                           ;$0018    ;rst $18 handler 
 rst $38                           ;$0019
 rst $38                           ;$001a
 rst $38                           ;$001b
@@ -35,7 +35,7 @@ rst $38                           ;$001d
 rst $38                           ;$001e
 rst $38                           ;$001f
 ;---------------------------------------
-rst $38                           ;$0020        ;rst $20 handler 
+rst $38                           ;$0020    ;rst $20 handler 
 rst $38                           ;$0021
 rst $38                           ;$0022
 rst $38                           ;$0023
@@ -44,7 +44,7 @@ rst $38                           ;$0025
 rst $38                           ;$0026
 rst $38                           ;$0027
 ;---------------------------------------
-add a                             ;$0028        ;rst $28 handler 
+add a                             ;$0028    ;rst $28 handler 
 pop hl                            ;$0029
 ld e, a                           ;$002a
 ld d, $00                         ;$002b
@@ -52,7 +52,7 @@ add hl, de                        ;$002d
 ld e, [hl]                        ;$002e
 inc hl                            ;$002f
 ;---------------------------------------
-ld d, [hl]                        ;$0030        ;rst $30 handler 
+ld d, [hl]                        ;$0030    ;rst $30 handler 
 push de                           ;$0031
 pop hl                            ;$0032
 jp hl                             ;$0033
@@ -61,7 +61,7 @@ rst $38                           ;$0035
 rst $38                           ;$0036
 rst $38                           ;$0037
 ;---------------------------------------
-rst $38                           ;$0038        ;rst $38 handler 
+rst $38                           ;$0038    ;rst $38 handler 
 rst $38                           ;$0039
 rst $38                           ;$003a
 rst $38                           ;$003b
@@ -70,35 +70,35 @@ rst $38                           ;$003d
 rst $38                           ;$003e
 rst $38                           ;$003f
 ;---------------------------------------
-jp $017e                          ;$0040        ;vblank interrupt handler
+jp $017e                          ;$0040    ;vblank interrupt handler
 rst $38                           ;$0043
 rst $38                           ;$0044
 rst $38                           ;$0045
 rst $38                           ;$0046
 rst $38                           ;$0047
 ;---------------------------------------
-jp $26be                          ;$0048        ;LCDSTAT interrupt handler
+jp $26be                          ;$0048    ;LCDSTAT interrupt handler
 rst $38                           ;$004b
 rst $38                           ;$004c
 rst $38                           ;$004d
 rst $38                           ;$004e
 rst $38                           ;$004f
 ;---------------------------------------
-jp $26be                          ;$0050        ;timer interrupt handler
+jp $26be                          ;$0050    ;timer interrupt handler
 rst $38                           ;$0053
 rst $38                           ;$0054
 rst $38                           ;$0055
 rst $38                           ;$0056
 rst $38                           ;$0057
 ;---------------------------------------
-jp $005b                          ;$0058        ;link cable interrupt handler
+jp $005b                          ;$0058    ;link cable interrupt handler
 push af                           ;$005b
 push hl                           ;$005c
 push de                           ;$005d
 push bc                           ;$005e
 db $cd                            ;$005f
 ;---------------------------------------
-ld l, e                           ;$0060        ;joypad interrupt handler
+ld l, e                           ;$0060    ;joypad interrupt handler
 nop                               ;$0061
 ld a, $01                         ;$0062
 ldh [$ffcc], a                    ;$0064
@@ -192,32 +192,32 @@ db $ff, $ff                       ;$00fe
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cartridge Header: https://gbdev.gg8.se/wiki/articles/The_Cartridge_Header    ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-nop                               ;$0100        ;entry point        
-jp $0150                          ;$0101        ;jump over header data to de-facto entry point
-db $ce, $ed, $66, $66, $cc, $0d   ;$0104        ;begin Nintendo logo tile data
-db $00, $0b, $03, $73, $00, $83   ;$010a        ;...
-db $00, $0c, $00, $0d, $00, $08   ;$0110        ;...
-db $11, $1f, $88, $89, $00, $0e   ;$0116        ;...
-db $dc, $cc, $6e, $e6, $dd, $dd   ;$011c        ;...
-db $d9, $99, $bb, $bb, $67, $63   ;$0122        ;...
-db $6e, $0e, $ec, $cc, $dd, $dc   ;$0128        ;...
-db $99, $9f, $bb, $b9, $33, $3e   ;$012e        ;end Nintendo logo tile data
-db "TETRIS"                       ;$0134        ;title
-db 0, 0, 0, 0, 0, 0, 0, 0, 0      ;$013a        ;title padding (15 chars)
-db $00                            ;$0143
-db $00                            ;$0144
-db $00                            ;$0145
-db $00                            ;$0146
-db $00                            ;$0147
-db $00                            ;$0148
-db $00                            ;$0149
-db $00                            ;$014a
-db $01                            ;$014b
-db $01                            ;$014c
-db $0a                            ;$014d
-db $16                            ;$014e
-db $bf                            ;$014f
-jp $020c                          ;$0150
+nop                               ;$0100    ;entry point        
+jp $0150                          ;$0101    ;jump over header data to de-facto entry point
+db $ce, $ed, $66, $66, $cc, $0d   ;$0104    ;begin Nintendo logo tile data               |
+db $00, $0b, $03, $73, $00, $83   ;$010a                                                 |
+db $00, $0c, $00, $0d, $00, $08   ;$0110                                                 |
+db $11, $1f, $88, $89, $00, $0e   ;$0116                                                 |
+db $dc, $cc, $6e, $e6, $dd, $dd   ;$011c                                                 |
+db $d9, $99, $bb, $bb, $67, $63   ;$0122                                                 |
+db $6e, $0e, $ec, $cc, $dd, $dc   ;$0128                                                 |
+db $99, $9f, $bb, $b9, $33, $3e   ;$012e    ;end Nintendo logo tile data                 |
+db "TETRIS"                       ;$0134    ;title                                       |
+db 0, 0, 0, 0, 0, 0, 0, 0, 0      ;$013a    ;title padding (15 chars)                    |
+db $00                            ;$0143                                                 |
+db $00                            ;$0144                                                 |
+db $00                            ;$0145                                                 |
+db $00                            ;$0146                                                 |
+db $00                            ;$0147                                                 |
+db $00                            ;$0148                                                 |
+db $00                            ;$0149                                                 |
+db $00                            ;$014a                                                 |
+db $01                            ;$014b                                                 |
+db $01                            ;$014c                                                 |
+db $0a                            ;$014d                                                 |
+db $16                            ;$014e                                                 |
+db $bf                            ;$014f                                                 |
+jp $020c                          ;$0150    ;de-facto entry point  <---------------------+
 call $29e3                        ;$0153
 ldh a, [$ff41]                    ;$0156
 and a, $03                        ;$0158
@@ -313,88 +313,125 @@ pop de                            ;$0208
 pop bc                            ;$0209
 pop af                            ;$020a
 reti                              ;$020b
+;---------------------------------------
+; Zero out work RAM $dfff - $d000      ;
+;---------------------------------------
 xor a                             ;$020c
-ld hl, $dfff                      ;$020d
-ld c, $10                         ;$0210
+ld hl, $dfff                      ;$020d    ;HL = top of work RAM bank 1
+ld c, $10                         ;$0210    ;loop 16 x 256 = 4K times
 ld b, $00                         ;$0212
-ldd [hl], a                       ;$0214
-dec b                             ;$0215
-jr nz, $0214                      ;$0216
-dec c                             ;$0218
-jr nz, $0214                      ;$0219
+ldd [hl], a                       ;$0214 <-+-+
+dec b                             ;$0215   | |
+jr nz, $0214                      ;$0216 --+ |
+dec c                             ;$0218     |
+jr nz, $0214                      ;$0219 ----+
+;---------------------------------------
+; Set up memory-mapped I/O registers   ;
+;---------------------------------------
 ld a, $01                         ;$021b
-di                                ;$021d
-ldh [$ff0f], a                    ;$021e
-ldh [$ffff], a                    ;$0220
-xor a                             ;$0222
-ldh [$ff42], a                    ;$0223
-ldh [$ff43], a                    ;$0225
-ldh [$ffa4], a                    ;$0227
-ldh [$ff41], a                    ;$0229
-ldh [$ff01], a                    ;$022b
-ldh [$ff02], a                    ;$022d
+di                                ;$021d    ;disable interrupts
+ldh [$ff0f], a                    ;$021e    ;interrupt flag = 1 (request vblank interrupt)
+ldh [$ffff], a                    ;$0220    ;interrupt enable = 1 (enable vblank interrupt)
+xor a                             ;$0222    
+ldh [$ff42], a                    ;$0223    ;scroll Y = 0
+ldh [$ff43], a                    ;$0225    ;scroll X = 0
+ldh [$ffa4], a                    ;$0227    ;unknown I/O register = 0
+ldh [$ff41], a                    ;$0229    ;LCD status register = 0
+ldh [$ff01], a                    ;$022b    ;serial data = 0
+ldh [$ff02], a                    ;$022d    ;serial control = 0
 ld a, $80                         ;$022f
-ldh [$ff40], a                    ;$0231
-ldh a, [$ff44]                    ;$0233
-cp $94                            ;$0235
-jr nz, $0233                      ;$0237
+ldh [$ff40], a                    ;$0231    ;LCD control register = $80 (was $91 -> turn off background + set bg and window tile base address to $8800)
+;---------------------------------------
+; Wait for vblank (scanline >= 144)    ;
+;---------------------------------------
+ldh a, [$ff44]                    ;$0233 <-+ do
+cp $94                            ;$0235   | { }
+jr nz, $0233                      ;$0237 --+ while (current scanline != 148)
+;---------------------------------------
+; Turn off LCD, set up color palettes  ;
+;---------------------------------------
 ld a, $03                         ;$0239
-ldh [$ff40], a                    ;$023b
+ldh [$ff40], a                    ;$023b    ;LCD control register = $03 (turn LCD off, but background and sprite displays on (?))
 ld a, $e4                         ;$023d
-ldh [$ff47], a                    ;$023f
-ldh [$ff48], a                    ;$0241
+ldh [$ff47], a                    ;$023f    ;background palette = $e4 (white, light gray, dark gray, black)
+ldh [$ff48], a                    ;$0241    ;sprite palette #0 = $e4 (transparent, light gray, dark gray, black)
 ld a, $c4                         ;$0243
-ldh [$ff49], a                    ;$0245
+ldh [$ff49], a                    ;$0245    ;sprite palette #1 = $e4 (transparent, white, light gray, white)
+;---------------------------------------
+; Set up sound registers               ;
+;---------------------------------------
 ld hl, $ff26                      ;$0247
 ld a, $80                         ;$024a
-ldd [hl], a                       ;$024c
+ldd [hl], a                       ;$024c    ;sound control = $80 (turn all sound channels on)
 ld a, $ff                         ;$024d
-ldd [hl], a                       ;$024f
-ld [hl], $77                      ;$0250
-ld a, $01                         ;$0252
-ld [$2000], a                     ;$0254
-ld sp, $cfff                      ;$0257
+ldd [hl], a                       ;$024f    ;sound output terminal selector = $ff (play all 4 channels to both headphone speakers)
+ld [hl], $77                      ;$0250    ;sound channel and volume control = $77 (max volume to both sound output terminals)
+;---------------------------------------
+ld a, $01                         ;$0252    ;write $01 to ROM address $2000 (huh? believed to be vestigial code from when/if a mapper was used)
+ld [$2000], a                     ;$0254    ;see https://www.reddit.com/r/EmuDev/comments/5ht388/gb_why_does_tetris_write_to_the_rom/
+;---------------------------------------
+ld sp, $cfff                      ;$0257    ;set stack to top of work RAM bank 0
+;---------------------------------------
+; Zero work RAM $dfff - $df00 (again?) ;
+;---------------------------------------
 xor a                             ;$025a
 ld hl, $dfff                      ;$025b
 ld b, $00                         ;$025e
-ldd [hl], a                       ;$0260
-dec b                             ;$0261
-jr nz, $0260                      ;$0262
-ld hl, $cfff                      ;$0264
-ld c, $10                         ;$0267
+ldd [hl], a                       ;$0260 <-+
+dec b                             ;$0261   |
+jr nz, $0260                      ;$0262 --+
+;---------------------------------------
+; Zero out work RAM $cfff - $c000      ;
+;---------------------------------------
+ld hl, $cfff                      ;$0264    ;HL = top of work RAM bank 0
+ld c, $10                         ;$0267    ;loop 16 x 256 = 4K times
 ld b, $00                         ;$0269
-ldd [hl], a                       ;$026b
-dec b                             ;$026c
-jr nz, $026b                      ;$026d
-dec c                             ;$026f
-jr nz, $026b                      ;$0270
-ld hl, $9fff                      ;$0272
-ld c, $20                         ;$0275
+ldd [hl], a                       ;$026b <-+-+
+dec b                             ;$026c   | |
+jr nz, $026b                      ;$026d --+ |
+dec c                             ;$026f     |
+jr nz, $026b                      ;$0270 ----+
+;---------------------------------------
+; Zero out all VRAM $9fff - $8000      ;
+; (both tilemaps + all tile data)      ;
+;---------------------------------------
+ld hl, $9fff                      ;$0272    ;HL = top of VRAM
+ld c, $20                         ;$0275    ;loop 32 x 256 = 8K times
 xor a                             ;$0277
 ld b, $00                         ;$0278
-ldd [hl], a                       ;$027a
-dec b                             ;$027b
-jr nz, $027a                      ;$027c
-dec c                             ;$027e
-jr nz, $027a                      ;$027f
+ldd [hl], a                       ;$027a <-+-+
+dec b                             ;$027b   | |
+jr nz, $027a                      ;$027c --+ |
+dec c                             ;$027e     |
+jr nz, $027a                      ;$027f ----+
+;---------------------------------------
+; Zero out $feff - $fe00 (OAM + ???)   ;     https://www.reddit.com/r/EmuDev/comments/5nixai/gb_tetris_writing_to_unused_memory/
+;---------------------------------------
 ld hl, $feff                      ;$0281
 ld b, $00                         ;$0284
-ldd [hl], a                       ;$0286
-dec b                             ;$0287
-jr nz, $0286                      ;$0288
+ldd [hl], a                       ;$0286 <-+
+dec b                             ;$0287   |
+jr nz, $0286                      ;$0288 --+
+;---------------------------------------
+; Zero out $fffe - $ff7f (zero page)   ;
+;---------------------------------------
 ld hl, $fffe                      ;$028a
 ld b, $80                         ;$028d
-ldd [hl], a                       ;$028f
-dec b                             ;$0290
-jr nz, $028f                      ;$0291
-ld c, $b6                         ;$0293
-ld b, $0c                         ;$0295
-ld hl, $2a7f                      ;$0297
-ldi a, [hl]                       ;$029a
-ld [$ff00+c], a                   ;$029b
-inc c                             ;$029c
-dec b                             ;$029d
-jr nz, $029a                      ;$029e
+ldd [hl], a                       ;$028f <-+
+dec b                             ;$0290   |
+jr nz, $028f                      ;$0291 --+
+;---------------------------------------
+; Copy DMA xfer routine to $ffb6       ;    http://bgb.bircd.org/pandocs.htm#lcdoamdmatransfers
+;---------------------------------------
+ld c, $b6                         ;$0293    ;offset into HRAM
+ld b, $0c                         ;$0295    ;length of routine
+ld hl, $2a7f                      ;$0297    ;HL = address of routine
+ldi a, [hl]                       ;$029a <+ ;a = byte of routine; hl++
+ld [$ff00+c], a                   ;$029b  | ;dest = a
+inc c                             ;$029c  | ;offset into HRAM++
+dec b                             ;$029d  | ;bytes remaining to copy--
+jr nz, $029a                      ;$029e -+ ;loop while bytes remaining to copy != 0
+;---------------------------------------
 call $2795                        ;$02a0
 call $7ff3                        ;$02a3
 ld a, $09                         ;$02a6
@@ -423,10 +460,10 @@ jp z, $021b                       ;$02d3
 ld hl, $ffa6                      ;$02d6
 ld b, $02                         ;$02d9
 ld a, [hl]                        ;$02db
-and a                             ;$02dc
-jr z, $02e0                       ;$02dd
-dec [hl]                          ;$02df
-inc l                             ;$02e0
+and a                             ;$02dc  
+jr z, $02e0                       ;$02dd --+
+dec [hl]                          ;$02df   |
+inc l                             ;$02e0 <-+
 dec b                             ;$02e1
 jr nz, $02db                      ;$02e2
 ldh a, [$ffc5]                    ;$02e4
@@ -548,6 +585,7 @@ ldh [$ffa6], a                    ;$038c
 ld a, $25                         ;$038e
 ldh [$ffe1], a                    ;$0390
 ret                               ;$0392
+;---------------------------------------
 ldh a, [$ffa6]                    ;$0393
 and a                             ;$0395
 ret nz                            ;$0396
@@ -6285,12 +6323,16 @@ ld a, $01                         ;$2a78
 ldh [$ffe0], a                    ;$2a7a
 pop af                            ;$2a7c
 jr $2a66                          ;$2a7d
+;---------------------------------------
+; OAM DMA transfer routine             ;    http://bgb.bircd.org/pandocs.htm#lcdoamdmatransfers
+;---------------------------------------
 ld a, $c0                         ;$2a7f
-ldh [$ff46], a                    ;$2a81
-ld a, $28                         ;$2a83
-dec a                             ;$2a85
-jr nz, $2a85                      ;$2a86
+ldh [$ff46], a                    ;$2a81    ;transfer from $c000
+ld a, $28                         ;$2a83    ;spinwait for the transfer to finish
+dec a                             ;$2a85 <-+
+jr nz, $2a85                      ;$2a86 --+
 ret                               ;$2a88
+;---------------------------------------
 ld a, h                           ;$2a89
 ldh [$ff96], a                    ;$2a8a
 ld a, l                           ;$2a8c
