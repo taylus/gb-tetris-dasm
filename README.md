@@ -28,7 +28,7 @@ fc /b "bin\Tetris.gb" "bin\Tetris (World) (Rev A).gb"
 * 1 = the files are different
 * 2 = the file(s) can't be found
 
-### By hashing and comparing
+### By hashing and comparing (PowerShell)
 
 ```powershell
 (Get-FileHash -Algorithm MD5 bin\Tetris.gb).Hash -eq "982ED5D2B12A0377EB14BCDC4123744E"
